@@ -73,11 +73,11 @@ public class DicConfig {
         isInit = true;
     }
 
-    private static Path getPluginPath() {
-        return env.pluginsFile().resolve("analysis-hanlp");
+    public static Path getPluginPath() {
+        return env.pluginsFile();
     }
 
-    private static Path getDefDicConfigPath() {
+    public static Path getDefDicConfigPath() {
         return env.pluginsFile().resolve("analysis-hanlp/hanlp.properties").toAbsolutePath();
     }
 

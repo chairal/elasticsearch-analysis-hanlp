@@ -132,12 +132,12 @@ public class ConfigHelper {
         return AccessController.doPrivileged((PrivilegedAction<Segment>) () -> {
             Segment segment;
             String algorithm = config.getAlgorithm();
-            if ("crf".equals(algorithm) || "条件随机场".equals(algorithm) ||
-                    "perceptron".equals(algorithm) || "感知机".equals(algorithm)) {
-                if (HanLP.Config.IOAdapter instanceof ResourceIOAdapter) {
-                    return null;
-                }
-            }
+//            if ("crf".equals(algorithm) || "条件随机场".equals(algorithm) ||
+//                    "perceptron".equals(algorithm) || "感知机".equals(algorithm)) {
+//                if (HanLP.Config.IOAdapter instanceof ResourceIOAdapter) {
+//                    return null;
+//                }
+//            }
             if ("viterbi".equals(algorithm) || "维特比".equals(algorithm)) {
                 String customDictionaryPath = config.getCustomDictionaryPath();
                 if (TextUtility.isBlank(customDictionaryPath)) {

@@ -2,6 +2,7 @@ package org.elasticsearch.plugin.hanlp;
 
 import com.hankcs.hanlp.corpus.io.IIOAdapter;
 import com.hankcs.hanlp.corpus.io.IOUtil;
+import org.elasticsearch.plugin.hanlp.conf.DicConfig;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,16 +11,7 @@ public class CachedResourceIOAdapter implements IIOAdapter {
 
     public static final int INDEX_NOT_FOUND = -1;
 
-    private static final String TMP_DIR;
-
-    static {
-        try {
-//            TMP_DIR = Files.createTempDirectory("hanlp").toAbsolutePath().toString();
-            TMP_DIR = Files.createTempDirectory("hanlp").toAbsolutePath().toString();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
+    private static final String TMP_DIR = DicConfig.getPluginPath().toString();
 
     private static final String SEP = File.separator;
 
