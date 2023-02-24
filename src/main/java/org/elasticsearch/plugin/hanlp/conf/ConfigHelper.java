@@ -4,6 +4,10 @@ package org.elasticsearch.plugin.hanlp.conf;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.corpus.io.IOUtil;
 import com.hankcs.hanlp.corpus.io.ResourceIOAdapter;
+import com.hankcs.hanlp.model.crf.CRFLexicalAnalyzer;
+import com.hankcs.hanlp.model.crf.CRFNERecognizer;
+import com.hankcs.hanlp.model.crf.CRFPOSTagger;
+import com.hankcs.hanlp.model.crf.CRFSegmenter;
 import com.hankcs.hanlp.seg.Segment;
 import com.hankcs.hanlp.seg.Viterbi.ViterbiSegment;
 import com.hankcs.hanlp.utility.TextUtility;
@@ -138,7 +142,18 @@ public class ConfigHelper {
 //                    return null;
 //                }
 //            }
-            if ("viterbi".equals(algorithm) || "维特比".equals(algorithm)) {
+            if ("crf".equals(algorithm)) {
+                try {
+                    segment = new CRFLexicalAnalyzer(
+                            new CRFSegmenter(HanLP.Config.CRFCWSModelPath),
+                            new CRFPOSTagger(HanLP.Config.CRFPOSModelPath),
+                            new CRFNERecognizer(HanLP.Config.CRFNERModelPath)
+                    );
+                } catch (IOException e) {
+                    logger.error("new CRFLexicalAnalyzer fail", e);
+                    segment = null;
+                }
+            }else if ("viterbi".equals(algorithm) || "维特比".equals(algorithm)) {
                 String customDictionaryPath = config.getCustomDictionaryPath();
                 if (TextUtility.isBlank(customDictionaryPath)) {
                     segment = new ViterbiSegment();
